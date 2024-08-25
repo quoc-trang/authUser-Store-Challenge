@@ -1,10 +1,10 @@
 <script setup>
-import { useAuthUser } from "@/composables/useAuthUser";
+import { useAuthStore } from "@/stores/AuthUserStore";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
 const router = useRouter();
-const { login } = useAuthUser();
+const store = useAuthStore();
 
 const error = ref("");
 
@@ -15,7 +15,7 @@ const form = ref({
 
 async function handleSubmit() {
   try {
-    await login({ ...form.value });
+    await store.login({ ...form.value });
     router.push("/");
   } catch (err) {
     error.value = err.message;
